@@ -1,9 +1,19 @@
 const path = require('path');
 
+// the loaders to the css
+let cssLoaders = [
+    'style-loader',
+    { loader: 'css-loader', options: { importLoaders: 1 } }
+]
 
 
-module.exports = function (env, argv) {
+
+module.exports = (env, argv) => {
+    // check that we are in development or production mode
     let dev = env.development ? true : false
+
+    // apply postcss-loader only in production mode
+    if (!dev) { cssLoaders.push('postcss-loader') }
    
     return {
         entry: {
@@ -33,11 +43,14 @@ module.exports = function (env, argv) {
                 },
                 {
                     test: /\.css$/,
-                    use: ['style-loader', 'css-loader']
+                    use: cssLoaders
                 },
                 {
                     test: /\.scss$/,
-                    use: ['style-loader', 'css-loader', 'sass-loader']
+                    use: [
+                        ...cssLoaders,
+                        'sass-loader'
+                    ]
                 }
             ]
         }
