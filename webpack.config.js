@@ -16,7 +16,9 @@ module.exports = function (env, argv) {
         devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
         resolve: {
             alias: {
-                '@js': path.resolve(__dirname, './src/js/')
+                '@js': path.resolve(__dirname, './src/js/'),
+                '@scss': path.resolve(__dirname, './src/scss/'),
+                '@css': path.resolve(__dirname, './src/css/')
             }
         },
         watch: dev,
@@ -28,6 +30,14 @@ module.exports = function (env, argv) {
                     use: {
                         loader: 'babel-loader'
                     }
+                },
+                {
+                    test: /\.css$/,
+                    use: ['style-loader', 'css-loader']
+                },
+                {
+                    test: /\.scss$/,
+                    use: ['style-loader', 'css-loader', 'sass-loader']
                 }
             ]
         }
