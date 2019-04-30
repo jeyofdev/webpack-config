@@ -1,30 +1,6 @@
-# webpack-config
-
-My webpack configuration
-
-### Webpack installation
-
-Install webpack from yarn or npm
-
-```sh
-$ yarn add webpack --dev
-$ npm install webpack --save-dev
-
-```
-
-Install packages
-
-```sh
-$ yarn add babel-loader @babel/preset-env @babel/core --dev
-$ npm install babel-loader @babel/preset-env @babel/core --save-dev
-```
-
-
-
-### Compile custom js file
-
-```javascript
 const path = require('path');
+
+
 
 module.exports = function (env, argv) {
     let dev = env.development ? true : false
@@ -57,5 +33,4 @@ module.exports = function (env, argv) {
         }
     }
 }
-```
-
+ 
