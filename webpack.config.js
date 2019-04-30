@@ -1,5 +1,6 @@
-const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 // the loaders to the css
 let cssLoaders = [
@@ -86,8 +87,11 @@ module.exports = (env, argv) => {
         plugins: [
             new MiniCssExtractPlugin({
                 filename: '[name].css'
+            }),
+            new HtmlWebpackPlugin({
+                template: './src/index.html',
+                filename: 'index.html'
             })
         ]
     }
 }
- 

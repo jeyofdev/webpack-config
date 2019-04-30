@@ -352,3 +352,51 @@ module.exports = (env, argv) => {
 ```
 
 
+
+### Extract html
+
+Install packages
+
+```sh
+$ yarn add html-webpack-plugin --dev
+$ npm install html-webpack-plugin --save-dev
+```
+
+
+Then edit webpack.config.js
+
+```javascript
+const path = require('path')
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+
+module.exports = (env, argv) => {
+    // check that we are in development or production mode
+    let dev = env.development ? true : false
+
+    return {
+        entry: {
+            app: [
+                './src/app.js',
+                './src/scss/main.scss',
+                './src/css/app.css'
+            ]
+        },
+        output: {
+            path: path.resolve(__dirname, './dist'),
+            filename: '[name].js'
+        },
+        devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
+        watch: dev,
+        plugins: [
+            new HtmlWebpackPlugin({
+                template: './src/index.html',
+                filename: 'index.html'
+            })
+        ]
+    }
+}
+```
+
+
+
+
