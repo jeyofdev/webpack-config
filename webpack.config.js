@@ -4,7 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // the loaders to the css
 let cssLoaders = [
     { loader: MiniCssExtractPlugin.loader },
-    { loader: 'css-loader', options: { importLoaders: 1 } }
+    { loader: 'css-loader', options: { importLoaders: 1 } },
+    'resolve-url-loader',
 ]
 
 
@@ -18,7 +19,11 @@ module.exports = (env, argv) => {
    
     return {
         entry: {
-            app: './src/app.js'
+            app: [
+                './src/app.js',
+                './src/scss/main.scss',
+                './src/css/app.css'
+            ]
         },
         output: {
             path: path.resolve(__dirname, './dist'),
@@ -51,6 +56,29 @@ module.exports = (env, argv) => {
                     use: [
                         ...cssLoaders,
                         'sass-loader'
+                    ]
+                },
+                {
+                    test: /\.(png|jpe?g|gif|svg)$/i,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 8192,
+                                name: 'img/[name].[ext]'
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.(woff2?|eot|ttf|otf)$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: 'fonts/[name].[ext]'
+                            }
+                        }
                     ]
                 }
             ]

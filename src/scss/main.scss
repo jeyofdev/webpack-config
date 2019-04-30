@@ -1,6 +1,22 @@
-$color: #090b1b;
+@font-face {
+    font-family: 'latoregular';
+    src: url('../fonts/lato-regular-webfont.woff2') format('woff2'),
+         url('../fonts/lato-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+ 
+
+$color: #e7e8f1;
+$font-primary: 'latoregular', sans-serif;
+
+
+body{
+    background: $color url('../img/bg.png');  // image from www.subtlepatterns.com
+}
 
 p{
+    font-family: $font-primary;
     color: $color;
     transform: translate3d(100px, 25px, 0);
 }
