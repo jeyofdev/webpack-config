@@ -1,6 +1,5 @@
 const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 // the loaders to the css
 let cssLoaders = [
@@ -27,7 +26,8 @@ module.exports = (env, argv) => {
             ]
         },
         output: {
-            path: path.resolve(__dirname, './dist'),
+            path: path.resolve(__dirname, './public/assets/'),
+            publicPath: (dev) ? '/assets/' : '../assets/',
             filename: '[name].js'
         },
         devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
@@ -39,6 +39,10 @@ module.exports = (env, argv) => {
             }
         },
         watch: dev,
+        devServer: {
+            overlay: true,
+            contentBase: path.resolve(__dirname, './public')
+        },
         module: {
             rules: [
                 {
@@ -87,10 +91,6 @@ module.exports = (env, argv) => {
         plugins: [
             new MiniCssExtractPlugin({
                 filename: '[name].css'
-            }),
-            new HtmlWebpackPlugin({
-                template: './src/index.html',
-                filename: 'index.html'
             })
         ]
     }

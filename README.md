@@ -399,4 +399,50 @@ module.exports = (env, argv) => {
 
 
 
+### Use the development server
+
+Install packages
+
+```sh
+$ yarn add webpack-dev-server --dev
+$ npm install webpack-dev-server --save-dev
+```
+
+
+Then edit webpack.config.js
+
+```javascript
+const path = require('path')
+//...
+
+module.exports = (env, argv) => {
+    // check that we are in development or production mode
+    let dev = env.development ? true : false
+
+    //...
+   
+    return {
+        entry: {
+            app: [
+                './src/app.js',
+                './src/scss/main.scss',
+                './src/css/app.css'
+            ]
+        },
+        output: {
+            path: path.resolve(__dirname, './public/assets/'),
+            publicPath: (dev) ? '/assets/' : '../assets/',
+            filename: '[name].js'
+        },
+        //...
+        devServer: {
+            contentBase: path.resolve(__dirname, './public')
+        },
+        //...
+    }
+}
+```
+
+
+
 
