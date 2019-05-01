@@ -1,5 +1,6 @@
 const path = require('path')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
@@ -28,8 +29,7 @@ module.exports = (env, argv) => {
             ]
         },
         output: {
-            path: path.resolve(__dirname, './public/assets/'),
-            publicPath: (dev) ? '/assets/' : '../assets/',
+            path: path.resolve(__dirname, './public/'),
             filename: (dev) ? '[name].js' : '[name]-[hash:8].js'
         },
         devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
@@ -99,12 +99,16 @@ module.exports = (env, argv) => {
             ]
         },
         plugins: [
-            new MiniCssExtractPlugin({
-                filename: (dev) ? '[name].css' : '[name]-[hash:8].css'
-            }),
             new CleanWebpackPlugin({
                 dry: false,  // set to true to verify that the correct files are targeted
                 verbose: true,
+            }),
+            new HtmlWebpackPlugin({
+                template: './src/index.html',
+                filename: 'index.html'
+            }),     
+            new MiniCssExtractPlugin({
+                filename: (dev) ? '[name].css' : '[name]-[hash:8].css'
             })
         ]
     }
