@@ -30,7 +30,7 @@ module.exports = (env, argv) => {
         output: {
             path: path.resolve(__dirname, './public/assets/'),
             publicPath: (dev) ? '/assets/' : '../assets/',
-            filename: '[name].js'
+            filename: (dev) ? '[name].js' : '[name]-[hash:8].js'
         },
         devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
         resolve: {
@@ -73,7 +73,7 @@ module.exports = (env, argv) => {
                             loader: 'url-loader',
                             options: {
                                 limit: 8192,
-                                name: 'img/[name].[ext]'
+                                name: 'img/[name]-[hash:8].[ext]'
                             }
                         }
                     ]
@@ -84,7 +84,7 @@ module.exports = (env, argv) => {
                         {
                             loader: 'file-loader',
                             options: {
-                                name: 'fonts/[name].[ext]'
+                                name: 'fonts/[name]-[hash:8].[ext]'
                             }
                         }
                     ]
@@ -93,7 +93,7 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: '[name].css'
+                filename: (dev) ? '[name].css' : '[name]-[hash:8].css'
             }),
             new CleanWebpackPlugin({
                 dry: false,  // set to true to verify that the correct files are targeted
