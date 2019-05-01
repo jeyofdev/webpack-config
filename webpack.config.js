@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -25,6 +26,7 @@ module.exports = (env, argv) => {
             app: [
                 './src/app.js',
                 './src/scss/main.scss',
+                './src/scss/bootstrap.scss',
                 './src/css/app.css'
             ]
         },
