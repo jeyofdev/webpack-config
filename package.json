@@ -53,7 +53,9 @@
     "jquery": "^3.4.0"
   },
   "browserslist": [
-    "last 2 versions",
-    "ie > 8"
+    ">= 5%",
+    "last 10 versions",
+    "ie > 8",
+    "not dead"
   ]
 }
