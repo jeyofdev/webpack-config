@@ -521,3 +521,45 @@ module.exports = (env, argv) => {
     return config
 }
 ```
+
+
+### Add eslint
+
+Install packages
+
+```sh
+$ yarn add eslint eslint-config-standard --dev
+$ npm install eslint eslint-config-standard --save-dev
+```
+
+Install eslint-loader
+
+```sh
+$ yarn add eslint-loader --dev
+$ npm install eslint-loader --save-dev
+```
+
+Then edit webpack.config.js
+
+```javascript
+const path = require('path')
+
+module.exports = (env, argv) => {
+    let config = {
+        module: {
+            rules: [
+                {
+                    enforce: 'pre',
+                    test: /\.js$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: {
+                        loader: 'eslint-loader'
+                    }
+                }
+            ]
+        }
+    }
+
+    return config
+}
+```
