@@ -1,6 +1,7 @@
 const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const ManifestPlugin = require('webpack-manifest-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 // the loaders to the css
 let cssLoaders = [
@@ -92,6 +93,10 @@ module.exports = (env, argv) => {
         plugins: [
             new MiniCssExtractPlugin({
                 filename: '[name].css'
+            }),
+            new CleanWebpackPlugin({
+                dry: false,  // set to true to verify that the correct files are targeted
+                verbose: true,
             })
         ]
     }

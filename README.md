@@ -446,7 +446,7 @@ module.exports = (env, argv) => {
 
 
 
-### generate asset manifests
+### Generate asset manifests
 
 Install packages
 
@@ -492,9 +492,32 @@ module.exports = (env, argv) => {
 
 
 
+### Remove/clean build folder
+
+Install packages
+
+```sh
+$ yarn add clean-webpack-plugin --dev
+$ npm install clean-webpack-plugin --save-dev
+```
 
 
+Then edit webpack.config.js
 
+```javascript
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
+module.exports = (env, argv) => {
+    let config = {
+        plugins: [
+            new CleanWebpackPlugin({
+                dry: false,  // set to true to verify that the correct files are targeted
+                verbose: true,
+            })
+        ]
+    }
 
-
+    return config
+}
+```
