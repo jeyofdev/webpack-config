@@ -1,5 +1,6 @@
 const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 // the loaders to the css
 let cssLoaders = [
@@ -17,7 +18,7 @@ module.exports = (env, argv) => {
     // apply postcss-loader only in production mode
     if (!dev) { cssLoaders.push('postcss-loader') }
    
-    return {
+    let config = {
         entry: {
             app: [
                 './src/app.js',
@@ -94,4 +95,12 @@ module.exports = (env, argv) => {
             })
         ]
     }
+
+    if(!dev){
+        config.plugins.push(new ManifestPlugin({
+            fileName: 'manifest.json'
+        }))
+    }
+
+    return config
 }

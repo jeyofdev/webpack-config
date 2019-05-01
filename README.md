@@ -446,3 +446,55 @@ module.exports = (env, argv) => {
 
 
 
+### generate asset manifests
+
+Install packages
+
+```sh
+$ yarn add webpack-manifest-plugin --dev
+$ npm install webpack-manifest-plugin --save-dev
+```
+
+
+Then edit webpack.config.js
+
+```javascript
+const path = require('path')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const ManifestPlugin = require('webpack-manifest-plugin');
+
+//...
+
+module.exports = (env, argv) => {
+    // check that we are in development or production mode
+    let dev = env.development ? true : false
+
+    //...
+   
+    let config = {
+        //...
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: '[name].css'
+            })
+        ]
+    }
+
+    if(!dev){
+        config.plugins.push(new ManifestPlugin({
+            fileName: 'manifest.json'
+        }))
+    }
+
+    return config
+}
+```
+
+
+
+
+
+
+
+
+
