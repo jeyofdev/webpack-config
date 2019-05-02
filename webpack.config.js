@@ -84,6 +84,26 @@ module.exports = (env, argv) => {
                                 limit: 8192,
                                 name: 'img/[name]-[hash:8].[ext]'
                             }
+                        },
+                        {
+                            loader: 'image-webpack-loader',
+                            options: {
+                                bypassOnDebug: dev,
+                                mozjpeg: {
+                                    progressive: true,
+                                    quality: 65
+                                },
+                                optipng: {
+                                    enabled: false
+                                },
+                                pngquant: {
+                                    quality: '65-90',
+                                    speed: 4
+                                },
+                                gifsicle: {
+                                    interlaced: false
+                                }
+                            }
                         }
                     ]
                 },
