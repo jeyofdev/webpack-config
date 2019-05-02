@@ -117,6 +117,16 @@ module.exports = (env, argv) => {
                             }
                         }
                     ]
+                },
+                {
+                    test: /\.(html)$/,
+                    use: {
+                        loader: 'html-loader',
+                        options: {
+                            minimize: !dev,
+                            removeComments: !dev
+                        }
+                    }
                 }
             ]
         },
@@ -127,7 +137,7 @@ module.exports = (env, argv) => {
             }),
             new HtmlWebpackPlugin({
                 template: './src/index.html',
-                filename: 'index.html'
+                filename: 'index.html',
             }),     
             new MiniCssExtractPlugin({
                 filename: (dev) ? '[name].css' : '[name]-[hash:8].css'
