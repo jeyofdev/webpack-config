@@ -1,13 +1,22 @@
 const webpack = require('webpack')
 const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+
+// plugins
+const plugins = {
+    extractCss: require('mini-css-extract-plugin'),
+    html: require('html-webpack-plugin'),
+    Manifest: require('webpack-manifest-plugin'),
+    clean: require('clean-webpack-plugin')
+}
 
 // the loaders to the css
 let cssLoaders = [
-    { loader: MiniCssExtractPlugin.loader },
+    { 
+        loader: plugins.extractCss.loader,
+        options: {
+            publicPath: '../',
+        }
+    },
     { loader: 'css-loader', options: { importLoaders: 1 } },
     'resolve-url-loader',
 ]
@@ -32,9 +41,9 @@ module.exports = (env, argv) => {
         },
         output: {
             path: path.resolve(__dirname, './public/'),
-            filename: (dev) ? '[name].js' : '[name]-[hash:8].js'
+            filename: (dev) ? 'js/[name].js' : 'js/[name]-[hash:8].js'
         },
-        devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
+        devtool: (dev) ? 'cheap-module-eval-source-map' : 'source-map',
         resolve: {
             alias: {
                 '@js': path.resolve(__dirname, './src/js/'),
@@ -44,6 +53,7 @@ module.exports = (env, argv) => {
         },
         watch: dev,
         devServer: {
+            port: 9000,
             overlay: true,
             contentBase: path.resolve(__dirname, './public')
         },
@@ -82,7 +92,7 @@ module.exports = (env, argv) => {
                             loader: 'url-loader',
                             options: {
                                 limit: 8192,
-                                name: 'img/[name]-[hash:8].[ext]'
+                                name: (dev) ? 'img/[name].[ext]' : 'img/[name]-[hash:8].[ext]'
                             }
                         },
                         {
@@ -113,7 +123,7 @@ module.exports = (env, argv) => {
                         {
                             loader: 'file-loader',
                             options: {
-                                name: 'fonts/[name]-[hash:8].[ext]'
+                                name: (dev) ? 'fonts/[name].[ext]' : 'fonts/[name]-[hash:8].[ext]'
                             }
                         }
                     ]
@@ -131,22 +141,22 @@ module.exports = (env, argv) => {
             ]
         },
         plugins: [
-            new CleanWebpackPlugin({
+            new plugins.clean({
                 dry: false,  // set to true to verify that the correct files are targeted
                 verbose: true,
             }),
-            new HtmlWebpackPlugin({
+            new plugins.html({
                 template: './src/index.html',
                 filename: 'index.html',
-            }),     
-            new MiniCssExtractPlugin({
-                filename: (dev) ? '[name].css' : '[name]-[hash:8].css'
+            }),
+            new plugins.extractCss({
+                filename: (dev) ? 'css/[name].css' : 'css/[name]-[hash:8].css'
             })
         ]
     }
 
     if(!dev){
-        config.plugins.push(new ManifestPlugin({
+        config.plugins.push(new plugins.Manifest({
             fileName: 'manifest.json'
         }))
     }
