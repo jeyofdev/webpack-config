@@ -34,8 +34,7 @@ module.exports = (env, argv) => {
         entry: {
             app: [
                 './src/app.js',
-                './src/scss/main.scss',
-                './src/scss/bootstrap.scss',
+                './src/scss/app.scss',
                 './src/css/app.css'
             ]
         },

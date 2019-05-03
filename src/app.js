@@ -1,10 +1,17 @@
-// import js
-import hello from '@js/hello.js'
-import { helloEN, helloFR } from '@js/hello_world.js'
+// import libraries js
 import $ from 'jquery'
 
-// import modal of Bootstrap js
-require('bootstrap/js/dist/modal')
+// import app js
+import hello from '@js/app/hello.js'
+import { helloEN, helloFR } from '@js/app/hello_world.js'
+
+// import all modules of libraries
+// require('bootstrap')
+
+// or
+
+// import plugins individually of libraries
+require('@js/vendor/bootstrap.js')
 
 // code js
 hello('hello ')
