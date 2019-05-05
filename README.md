@@ -1,565 +1,118 @@
 # webpack-config
 
-My webpack configuration
+My boilerplate with Webpack based setup that allow build web apps and sites much faster.
+
+
+
+
+### Tools
+
+Check that the latest version of [Nodejs](https://nodejs.org/en/download/) is installed :
+```sh
+$ node -v
+```
+
+Check that the latest version of [Yarn](https://yarnpkg.com/en/docs/install) is installed :
+```sh
+$ yarn -v
+```
+
+
 
 ### Webpack installation
 
-Install webpack from yarn or npm
-
+Install webpack from CLI
 ```sh
 $ yarn add webpack --dev
-$ npm install webpack --save-dev
-
 ```
 
 
 
-### Compile custom js file
+### Available Webpack commands
 
-Install packages
+* `yarn run dev` — Compile assets for developing when file changes are made
+* `yarn run prod` — Compile and optimize the files in assets directory for production
 
+
+
+
+### Initialize a project
+
+Clone the depot and install all the dependencies :
 ```sh
-$ yarn add babel-loader @babel/preset-env @babel/core --dev
-$ npm install babel-loader @babel/preset-env @babel/core --save-dev
-```
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path');
-
-module.exports = function (env, argv) {
-    let dev = env.development ? true : false
-   
-    return {
-        entry: {
-            app: './src/app.js'
-        },
-        output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: '[name].js'
-        },
-        devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
-        resolve: {
-            alias: {
-                '@js': path.resolve(__dirname, './src/js/')
-            }
-        },
-        watch: dev,
-        module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader'
-                    }
-                }
-            ]
-        }
-    }
-}
-```
-
-
-
-### Compile sass & css file
-
-Install packages
-
-```sh
-$ yarn add css-loader style-loader sass-loader node-sass --dev
-$ npm install css-loader style-loader sass-loader node-sass --save-dev
-```
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path');
-
-module.exports = function (env, argv) {
-    let dev = env.development ? true : false
-   
-    return {
-        entry: {
-            app: './src/app.js'
-        },
-        output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: '[name].js'
-        },
-        devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
-        resolve: {
-            alias: {
-                '@scss': path.resolve(__dirname, './src/scss/'),
-                '@css': path.resolve(__dirname, './src/css/')
-            }
-        },
-        watch: dev,
-        module: {
-            rules: [
-                {
-                    test: /\.css$/,
-                    use: ['style-loader', 'css-loader']
-                },
-                {
-                    test: /\.scss$/,
-                    use: ['style-loader', 'css-loader', 'sass-loader']
-                }
-            ]
-        }
-    }
-}
-```
-
-
-
-### Use postCss
-
-Install packages
-
-```sh
-$ yarn add postcss-loader autoprefixer --dev
-$ npm install postcss-loader autoprefixer --save-dev
-```
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path');
-
-// the loaders to the css
-let cssLoaders = [
-    'style-loader',
-    { loader: 'css-loader', options: { importLoaders: 1 } }
-]
-
-module.exports = (env, argv) => {
-    // check that we are in development or production mode
-    let dev = env.development ? true : false
-
-    // apply postcss-loader only in production mode
-    if (!dev) { cssLoaders.push('postcss-loader') }
-   
-    return {
-        entry: {
-            app: './src/app.js'
-        },
-        output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: '[name].js'
-        },
-        devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
-        resolve: {
-            alias: {
-                '@scss': path.resolve(__dirname, './src/scss/'),
-                '@css': path.resolve(__dirname, './src/css/')
-            }
-        },
-        watch: dev,
-        module: {
-            rules: [
-                {
-                    test: /\.css$/,
-                    use: cssLoaders
-                },
-                {
-                    test: /\.scss$/,
-                    use: [
-                        ...cssLoaders,
-                        'sass-loader'
-                    ]
-                }
-            ]
-        }
-    }
-}
-```
-
-
-
-### Extract css
-
-Install packages
-
-```sh
-$ yarn add mini-css-extract-plugin --dev
-$ npm install mini-css-extract-plugin --save-dev
-```
-
-Edit html file
-
-```html
-<link rel="stylesheet" href="/dist/app.css">
-```
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
-// the loaders to the css
-let cssLoaders = [
-    { loader: MiniCssExtractPlugin.loader },
-    { loader: 'css-loader', options: { importLoaders: 1 } }
-]
-
-module.exports = (env, argv) => {
-    // check that we are in development or production mode
-    let dev = env.development ? true : false
-
-    // apply postcss-loader only in production mode
-    if (!dev) { cssLoaders.push('postcss-loader') }
-   
-    return {
-        entry: {
-            app: './src/app.js'
-        },
-        output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: '[name].js'
-        },
-        devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
-        resolve: {
-            alias: {
-                '@scss': path.resolve(__dirname, './src/scss/'),
-                '@css': path.resolve(__dirname, './src/css/')
-            }
-        },
-        watch: dev,
-        module: {
-            rules: [
-                {
-                    test: /\.css$/,
-                    use: cssLoaders
-                },
-                {
-                    test: /\.scss$/,
-                    use: [
-                        ...cssLoaders,
-                        'sass-loader'
-                    ]
-                }
-            ]
-        },
-        plugins: [
-            new MiniCssExtractPlugin({
-                filename: '[name].css'
-            })
-        ]
-    }
-}
-```
-
-
-
-### Define the relative links of assets to css
-
-Install packages
-
-```sh
-$ yarn add url-loader file-loader resolve-url-loader --dev
-$ npm install url-loader file-loader resolve-url-loader --save-dev
-```
-
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
-// the loaders to the css
-let cssLoaders = [
-    { loader: MiniCssExtractPlugin.loader },
-    { loader: 'css-loader', options: { importLoaders: 1 } },
-    'resolve-url-loader',
-]
-
-module.exports = (env, argv) => {
-    // check that we are in development or production mode
-    let dev = env.development ? true : false
-
-    // apply postcss-loader only in production mode
-    if (!dev) { cssLoaders.push('postcss-loader') }
-   
-    return {
-        entry: {
-            app: [
-                './src/app.js',
-                './src/scss/main.scss',
-                './src/css/app.css'
-            ]
-        },
-        output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: '[name].js'
-        },
-        devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
-        resolve: {
-            alias: {
-                '@scss': path.resolve(__dirname, './src/scss/'),
-                '@css': path.resolve(__dirname, './src/css/')
-            }
-        },
-        watch: dev,
-        module: {
-            rules: [
-                {
-                    test: /\.css$/,
-                    use: cssLoaders
-                },
-                {
-                    test: /\.scss$/,
-                    use: [
-                        ...cssLoaders,
-                        'sass-loader'
-                    ]
-                },
-                {
-                    test: /\.(png|jpe?g|gif|svg)$/i,
-                    use: [
-                        {
-                            loader: 'url-loader',
-                            options: {
-                                limit: 8192,
-                                name: 'img/[name].[ext]'
-                            }
-                        }
-                    ]
-                },
-                {
-                    test: /\.(woff2?|eot|ttf|otf)$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: 'fonts/[name].[ext]'
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        plugins: [
-            new MiniCssExtractPlugin({
-                filename: '[name].css'
-            })
-        ]
-    }
-}
-```
-
-
-
-### Extract html
-
-Install packages
-
-```sh
-$ yarn add html-webpack-plugin --dev
-$ npm install html-webpack-plugin --save-dev
-```
-
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path')
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-
-module.exports = (env, argv) => {
-    // check that we are in development or production mode
-    let dev = env.development ? true : false
-
-    return {
-        entry: {
-            app: [
-                './src/app.js',
-                './src/scss/main.scss',
-                './src/css/app.css'
-            ]
-        },
-        output: {
-            path: path.resolve(__dirname, './dist'),
-            filename: '[name].js'
-        },
-        devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
-        watch: dev,
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: './src/index.html',
-                filename: 'index.html'
-            })
-        ]
-    }
-}
-```
-
-
-
-### Use the development server
-
-Install packages
-
-```sh
-$ yarn add webpack-dev-server --dev
-$ npm install webpack-dev-server --save-dev
-```
-
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path')
-//...
-
-module.exports = (env, argv) => {
-    // check that we are in development or production mode
-    let dev = env.development ? true : false
-
-    //...
-   
-    return {
-        entry: {
-            app: [
-                './src/app.js',
-                './src/scss/main.scss',
-                './src/css/app.css'
-            ]
-        },
-        output: {
-            path: path.resolve(__dirname, './public/assets/'),
-            publicPath: (dev) ? '/assets/' : '../assets/',
-            filename: '[name].js'
-        },
-        //...
-        devServer: {
-            contentBase: path.resolve(__dirname, './public')
-        },
-        //...
-    }
-}
+$ yarn install
 ```
 
 
 
 
-### Generate asset manifests
+### Features
 
-Install packages
-
-```sh
-$ yarn add webpack-manifest-plugin --dev
-$ npm install webpack-manifest-plugin --save-dev
-```
-
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const ManifestPlugin = require('webpack-manifest-plugin');
-
-//...
-
-module.exports = (env, argv) => {
-    // check that we are in development or production mode
-    let dev = env.development ? true : false
-
-    //...
-   
-    let config = {
-        //...
-        plugins: [
-            new MiniCssExtractPlugin({
-                filename: '[name].css'
-            })
-        ]
-    }
-
-    if(!dev){
-        config.plugins.push(new ManifestPlugin({
-            fileName: 'manifest.json'
-        }))
-    }
-
-    return config
-}
-```
+* [Webpack](https://webpack.js.org/)
+* [Bootstrap](http://getbootstrap.com/) the most popular HTML, CSS and JS framework
+* [Font Awesome 5](https://fontawesome.com/) the web's most popular icon set and toolkit
+* [Postcss](https://postcss.org/) A tool for transforming CSS with JavaScript
+* [Babel](https://babeljs.io/) toolchain to convert ES6+ code into a backwards compatible
+* [Eslint](https://eslint.org/) a fully pluggable tool for identifying and reporting on patterns in JavaScript
+* [browserslist](https://github.com/browserslist/browserslist) live reloading (browser update after changes)
+* [Autoprefixer](https://github.com/postcss/autoprefixer) plugin to parse CSS and add vendor prefixes
+* [cssnano](https://cssnano.co/) formatted CSS and runs it through many focused optimisations
+* [webpack-dev-server](https://webpack.js.org/configuration/dev-server) live reloading (browser update after changes)
 
 
 
-### Remove/clean build folder
 
-Install packages
+### Loaders
 
-```sh
-$ yarn add clean-webpack-plugin --dev
-$ npm install clean-webpack-plugin --save-dev
-```
-
-
-Then edit webpack.config.js
-
-```javascript
-const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-
-module.exports = (env, argv) => {
-    let config = {
-        plugins: [
-            new CleanWebpackPlugin({
-                dry: false,  // set to true to verify that the correct files are targeted
-                verbose: true,
-            })
-        ]
-    }
-
-    return config
-}
-```
+* [babel-loader](https://webpack.js.org/loaders/babel-loader) this package allows transpiling JavaScript files using Babel and webpack.
+* [eslint-loader](https://webpack.js.org/loaders/eslint-loader) a fully pluggable tool for identifying and reporting on patterns in JavaScript
+* [file-loader](https://webpack.js.org/loaders/file-loader) The file-loader resolves import/require() on a file into a url and emits the file into the output directory
+* [css-loader](https://webpack.js.org/loaders/css-loader) The css-loader interprets @import and url() like import/require() and will resolve them.
+* [resolve-url-loader](https://github.com/bholloway/resolve-url-loader) resolves relative paths in url() statements based on the original source file
+* [url-loader](https://webpack.js.org/loaders/url-loader) transforms files into base64 URIs
+* [sass-loader](https://webpack.js.org/loaders/sass-loader) Loads a Sass/SCSS file and compiles it to CSS
+* [postcss-loader](https://webpack.js.org/loaders/postcss-loader) process CSS with PostCSS
+* [image-webpack-loader](https://github.com/tcoopman/image-webpack-loader) optimize the images files
+* [html-loader](https://webpack.js.org/loaders/html-loader) HTML is minimized when the compiler is demand
 
 
-### Add eslint
 
-Install packages
 
-```sh
-$ yarn add eslint eslint-config-standard --dev
-$ npm install eslint eslint-config-standard --save-dev
-```
+### Plugins
 
-Install eslint-loader
+* [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) extracts CSS into separate files
+* [html-webpack-plugin](https://webpack.js.org/plugins/html-webpack-plugin) generate an HTML5 file
+* [webpack-manifest-plugin](https://github.com/danethurber/webpack-manifest-plugin) generating an asset manifest
+* [clean-webpack-plugin](https://github.com/johnagan/clean-webpack-plugin) clean public folder before building
 
-```sh
-$ yarn add eslint-loader --dev
-$ npm install eslint-loader --save-dev
-```
 
-Then edit webpack.config.js
 
-```javascript
-const path = require('path')
 
-module.exports = (env, argv) => {
-    let config = {
-        module: {
-            rules: [
-                {
-                    enforce: 'pre',
-                    test: /\.js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'eslint-loader'
-                    }
-                }
-            ]
-        }
-    }
+### Development and Production environment
 
-    return config
-}
-```
+* clean public folder before building
+* has alias for assets types (scss, css, js)
+* Optimize the images files
+* compiles everything with relative paths
+* compiles sass/scss to the css file
+* compiles es6 to the syntax that every browser can understand
+* reporting on patterns in js
+
+
+
+
+### Development environment
+
+* run webpack-dev-server
+* builds source-maps
+
+
+
+
+### Production environment
+
+* add an hash to the assets files
+* minifies html, css and js
+* minifies multiple image types (gif, png, jpg, jpeg, svg)
+* copies all web fonts
+* generating an asset manifest
