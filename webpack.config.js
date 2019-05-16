@@ -42,7 +42,7 @@ module.exports = (env, argv) => {
             path: path.resolve(__dirname, './public/'),
             filename: (dev) ? 'js/[name].js' : 'js/[name]-[hash:8].js'
         },
-        devtool: (dev) ? 'cheap-module-eval-source-map' : 'source-map',
+        devtool: (dev) ? 'source-map' : 'cheap-module-eval-source-map',
         resolve: {
             alias: {
                 '@js': path.resolve(__dirname, './src/js/'),
