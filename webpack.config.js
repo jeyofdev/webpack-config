@@ -6,7 +6,8 @@ const plugins = {
     extractCss: require('mini-css-extract-plugin'),
     html: require('html-webpack-plugin'),
     Manifest: require('webpack-manifest-plugin'),
-    clean: require('clean-webpack-plugin')
+    clean: require('clean-webpack-plugin'),
+    styleLint: require('stylelint-webpack-plugin'),
 }
 
 // the loaders to the css
@@ -52,7 +53,7 @@ module.exports = (env, argv) => {
         },
         watch: dev,
         devServer: {
-            port: 9000,
+            port: 8800,
             overlay: true,
             contentBase: path.resolve(__dirname, './public')
         },
@@ -150,7 +151,8 @@ module.exports = (env, argv) => {
             }),
             new plugins.extractCss({
                 filename: (dev) ? 'css/[name].css' : 'css/[name]-[hash:8].css'
-            })
+            }),
+            new plugins.styleLint()
         ]
     }
 
