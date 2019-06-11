@@ -54,6 +54,7 @@ $ yarn install
 * [Postcss](https://postcss.org/) A tool for transforming CSS with JavaScript
 * [Babel](https://babeljs.io/) toolchain to convert ES6+ code into a backwards compatible
 * [Eslint](https://eslint.org/) a fully pluggable tool for identifying and reporting on patterns in JavaScript
+* [Stylelint](https://eslint.org/)  mighty, modern linter that helps you avoid errors and enforce conventions in your styles
 * [browserslist](https://github.com/browserslist/browserslist) live reloading (browser update after changes)
 * [Autoprefixer](https://github.com/postcss/autoprefixer) plugin to parse CSS and add vendor prefixes
 * [cssnano](https://cssnano.co/) formatted CSS and runs it through many focused optimisations
@@ -84,6 +85,7 @@ $ yarn install
 * [html-webpack-plugin](https://webpack.js.org/plugins/html-webpack-plugin) generate an HTML5 file
 * [webpack-manifest-plugin](https://github.com/danethurber/webpack-manifest-plugin) generating an asset manifest
 * [clean-webpack-plugin](https://github.com/johnagan/clean-webpack-plugin) clean public folder before building
+* [stylelint-webpack-plugin](https://github.com/johnagan/clean-webpack-plugin)  mighty, modern linter that helps you avoid errors and enforce conventions in your styles
 
 
 
