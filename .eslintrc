@@ -1,7 +1,7 @@
 {
   "extends": "standard",
   "rules": {
-    "no-trailing-spaces": "off"
+    "no-unused-vars": "off",
+    "no-undef": "off"
   }
 }
- 
