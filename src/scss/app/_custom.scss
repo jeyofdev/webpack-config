@@ -25,3 +25,9 @@ p {
 .fas {
   color: #e7e8f1;
 }
+
+@include media-breakpoint-up(lg) {
+  body {
+    margin: 0 auto;
+  }
+}
