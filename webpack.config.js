@@ -1,12 +1,12 @@
 const webpack = require('webpack')
 const path = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 // plugins
 const plugins = {
   extractCss: require('mini-css-extract-plugin'),
   html: require('html-webpack-plugin'),
   Manifest: require('webpack-manifest-plugin'),
-  clean: require('clean-webpack-plugin'),
   styleLint: require('stylelint-webpack-plugin'),
 }
 
@@ -107,7 +107,7 @@ module.exports = (env, argv) => {
                   enabled: false
                 },
                 pngquant: {
-                  quality: '65-90',
+                  quality: [0.65, 0.90],
                   speed: 4
                 },
                 gifsicle: {
@@ -141,7 +141,7 @@ module.exports = (env, argv) => {
       ]
     },
     plugins: [
-      new plugins.clean({
+      new CleanWebpackPlugin({
         dry: false,  // set to true to verify that the correct files are targeted
         verbose: true,
       }),

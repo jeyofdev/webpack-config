@@ -18,10 +18,10 @@ hello('hello ')
 helloEN('hello all people')
 helloFR('bonjour à tous')
 
-let message = 'hello world'
+const message = 'hello world'
 hello(message)
 
-let [b, , c] = [1, 2, 4, 5]
+const [b, , c] = [1, 2, 4, 5]
 console.log(b)
 console.log(c)
 
