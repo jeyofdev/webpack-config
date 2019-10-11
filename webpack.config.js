@@ -34,28 +34,34 @@ module.exports = (env, argv) => {
   let config = {
     entry: {
       app: [
-        './src/js/app.js',
-        './src/scss/app.scss',
-        './src/css/app.css'
+        './assets/js/app.js',
+        './assets/scss/app.scss',
+        './assets/css/app.css'
       ]
     },
     output: {
-      path: path.resolve(__dirname, './public/'),
+      path: path.resolve(__dirname, './public/assets/'),
+      publicPath: (dev ? 'http://localhost:8080' : '') + '/assets/',
       filename: (dev) ? 'js/[name].js' : 'js/[name]-[hash:8].js'
     },
     devtool: (dev) ? 'source-map' : 'cheap-module-eval-source-map',
     resolve: {
       alias: {
-        '@js': path.resolve(__dirname, './src/js/'),
-        '@scss': path.resolve(__dirname, './src/scss/'),
-        '@css': path.resolve(__dirname, './src/css/')
+        '@js': path.resolve(__dirname, './assets/js/'),
+        '@scss': path.resolve(__dirname, './assets/scss/'),
+        '@css': path.resolve(__dirname, './assets/css/')
       }
     },
     watch: dev,
     devServer: {
-      port: 8800,
+      port: 8080,
       overlay: true,
-      contentBase: path.resolve(__dirname, './public')
+      contentBase: path.resolve(__dirname, './public'),
+      headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+      } 
     },
     module: {
       rules: [
@@ -146,7 +152,7 @@ module.exports = (env, argv) => {
         verbose: true,
       }),
       new plugins.html({
-        template: './src/index.html',
+        template: './public/index.html',
         filename: 'index.html',
       }),
       new plugins.extractCss({
