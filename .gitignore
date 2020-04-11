@@ -1,4 +1,4 @@
-/node_modules/
+/ressources/node_modules/
 
-yarn.lock
-yarn-error.log
+/ressources/yarn.lock
+/ressources/yarn-error.log
