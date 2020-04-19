@@ -41,12 +41,12 @@ module.exports = {
 ## Generate the assets
 ### Dev mode :
 ```sh
-$ cd /yoursitepath/wp-content/themes/yourthemename/ressources
+$ cd /yoursitepath/ressources
 $ yarn start
 ```
 
 ### Production mode :
 ```sh
-$ cd /yoursitepath/wp-content/themes/yourthemename/ressources
+$ cd /yoursitepath/ressources
 $ yarn build
 ```
