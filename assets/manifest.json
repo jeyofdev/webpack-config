@@ -1,7 +1,8 @@
 {
-    "fonts/lato-regular-webfont.woff": "fonts/lato-regular-webfont.woff",
-    "fonts/lato-regular-webfont.woff2": "fonts/lato-regular-webfont.woff2",
-    "images/bg.png": "images/bg.png",
-    "scripts/app.js": "scripts/app.js",
-    "styles/app.css": "styles/app.css"
+  "fonts/lato-regular-webfont.woff": "fonts/lato-regular-webfont_442151ab.woff",
+  "fonts/lato-regular-webfont.woff2": "fonts/lato-regular-webfont_9fe233eb.woff2",
+  "images/bg.png": "images/bg_c16de435.png",
+  "images/wp-logo.png": "images/wp-logo_5e20e7da.png",
+  "styles/app.css": "styles/app_7893c709.css",
+  "scripts/app.js": "scripts/app_7893c709.js"
 }

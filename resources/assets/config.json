@@ -1,0 +1,12 @@
+{
+    "entry": {
+        "app": [
+            "./scripts/app.js",
+            "./styles/app.scss"
+        ]
+    },
+    "publicPath": "",
+    "devUrl": "http://example.test",
+    "proxyUrl": "http://localhost:3000",
+    "cacheBusting": "[name]_[hash:8]"
+}
