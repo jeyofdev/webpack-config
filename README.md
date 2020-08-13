@@ -50,3 +50,8 @@ $ yarn start
 $ cd /yoursitepath/ressources
 $ yarn build
 ```
+
+### Production mode with manifest file and minified assets:
+```sh
+$ yarn build:production
+```
